@@ -83,6 +83,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class) // 没有访问权限。使用 @PreAuthorize 校验权限不通过时，就会抛出 AccessDeniedException 异常
+//    @ResponseBody
     public CommonResult handleAuthorizationException(AccessDeniedException e) {
         return CommonResult.error(HttpStatus.FORBIDDEN.value(), "没有权限，请联系管理员授权");
     }
@@ -105,7 +106,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public CommonResult exceptionHandler(HttpServletRequest req, Exception e) {
         // 记录异常日志
-//        logger.error("[exceptionHandler]", e);
+        logger.error("[exceptionHandler]", e);
         // 返回 ERROR CommonResult
         return CommonResult.error(ServiceExceptionEnum.SYS_ERROR.getCode(),
                 ServiceExceptionEnum.SYS_ERROR.getMessage());
