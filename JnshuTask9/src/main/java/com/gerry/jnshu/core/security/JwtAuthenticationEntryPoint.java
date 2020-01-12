@@ -18,8 +18,9 @@ import java.io.Serializable;
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+//        e.printStackTrace();
         int code = HttpStatus.UNAUTHORIZED.value();
-        String msg = "认证失败，token 不合法";
+        String msg = "认证失败，请重新登录";
         ServletUtils.renderString(httpServletResponse, JSONUtil.toJSONString(CommonResult.error(code,msg)));
     }
 }

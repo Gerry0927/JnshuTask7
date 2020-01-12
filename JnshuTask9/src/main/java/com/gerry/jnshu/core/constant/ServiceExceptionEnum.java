@@ -11,6 +11,7 @@ public enum ServiceExceptionEnum {
     // ========== 用户模块 ==========
     USER_NOT_FOUND(-1, "用户不存在"),
     USER_NOT_MATCH(-1, "账号密码不匹配"),
+    USER_ACCOUNT_ERROR(-1, "账号异常"),
     USER_EXIST(-1, "手机号已注册"),
     AUTHORIZED_ERROR(403,"用户验证失败"),
     AUTHENTICATION_ERROR(401,"用户失败");

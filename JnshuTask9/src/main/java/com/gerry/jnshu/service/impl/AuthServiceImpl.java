@@ -10,8 +10,10 @@ import com.gerry.jnshu.pojo.UserInfo;
 import com.gerry.jnshu.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -37,7 +39,12 @@ public class AuthServiceImpl implements AuthService {
         try {
             authentication = authenticationManager.authenticate(upToken);
         } catch (Exception e) {
-            throw new ServiceException(ServiceExceptionEnum.USER_NOT_MATCH);
+            if(e instanceof BadCredentialsException){
+                throw new ServiceException(ServiceExceptionEnum.USER_NOT_MATCH);
+            }
+            else{
+                throw new ServiceException(ServiceExceptionEnum.USER_ACCOUNT_ERROR);
+            }
         }
         JwtUser jwtUser = (JwtUser) authentication.getPrincipal();
         userInfo.setToken(tokenService.createToken(jwtUser));

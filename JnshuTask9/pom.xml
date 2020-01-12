@@ -159,6 +159,8 @@
       </exclusions>
     </dependency>
 
+
+
     <!-- 实现对 Spring Data Redis 的自动化配置 -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
