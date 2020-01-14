@@ -1,4 +1,6 @@
 import com.gerry.jnshu.Application;
+import com.gerry.jnshu.pojo.SmsInfo;
+import com.gerry.jnshu.service.SendSmsCodeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -44,6 +46,7 @@ public class UserControllerTest {
                 "]")); // 响应结果
 
     }
+
     @Test
     public void testGet() throws Exception {
         // 获得指定用户编号的用户
@@ -54,6 +57,7 @@ public class UserControllerTest {
                 "\"id\": 1,\n" +
                 "\"username\": \"username:1\"\n" +
                 "}")); // 响应结果
+
     }
 
     @Test

@@ -24,6 +24,13 @@ spring:
   resources:
     add-mappings: false
 
+  rabbitmq:
+    addresses: f0t1.top:5672
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 15s
+
 mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mapper/*.xml
@@ -33,6 +40,20 @@ token:
   header: Authorization
   secret: abcdefghijklmnopqrstuvwxyz
   expireTime: 30
+
+
+aliyun:
+  smssdk:
+    product: Dysmsapi
+    domain: dysmsapi.aliyuncs.com
+    accessKeyId: LTAI4FvNF4k2KFUNZV8F6ih1
+    accessKeySecret: IXhk77Y4oHAWk0951Wl79EtUGWYMV2
+    signName: IT修真院
+    templateCode: SMS_175240801
+    defaultConnectTimeout: 10000
+    defaultReadTimeout: 10000
+    expireTime: 5
+
 
 logging:
   level:

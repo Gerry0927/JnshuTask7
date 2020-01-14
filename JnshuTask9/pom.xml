@@ -187,6 +187,34 @@
       <version>2.1.5</version>
     </dependency>
 
+    <!--短信sdk-->
+    <dependency>
+      <groupId>com.aliyun</groupId>
+      <artifactId>aliyun-java-sdk-core</artifactId>
+      <version>3.3.1</version>
+      <!--<scope>system</scope>-->
+      <!--<systemPath>${basedir}/lib/aliyun-java-sdk-core-3.3.1.jar</systemPath>-->
+    </dependency>
+    <dependency>
+      <groupId>com.aliyun</groupId>
+      <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+      <version>1.0.0</version>
+      <!--<scope>system</scope>-->
+      <!--<systemPath>${basedir}/lib/aliyun-java-sdk-dysmsapi-1.0.0.jar</systemPath>-->
+    </dependency>
+
+    <!--RabbitMQ-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-amqp</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+
     <!-- 等会示例会使用 fastjson 作为 JSON 序列化的工具 -->
     <dependency>
       <groupId>com.alibaba</groupId>
@@ -198,7 +226,9 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional> <!-- 这个网上说需要设置为 true 热部署才有效,实测没有也可以的 -->
+
     </dependency>
+
 
   </dependencies>
 
@@ -214,6 +244,25 @@
           <target>8</target>
         </configuration>
       </plugin>
+
+      <!--<plugin>-->
+        <!--<groupId>org.apache.maven.plugins</groupId>-->
+        <!--<artifactId>maven-dependency-plugin</artifactId>-->
+        <!--<version>3.1.1</version>-->
+        <!--<executions>-->
+          <!--<execution>-->
+            <!--<id>copy-dependencies</id>-->
+            <!--<phase>compile</phase>-->
+            <!--<goals>-->
+              <!--<goal>copy-dependencies</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+              <!--<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</outputDirectory>-->
+              <!--<includeScope>system</includeScope>-->
+            <!--</configuration>-->
+          <!--</execution>-->
+        <!--</executions>-->
+      <!--</plugin>-->
 
       <plugin>
         <groupId>org.mybatis.generator</groupId>
@@ -245,6 +294,8 @@
             <artifactId>mapper</artifactId>
             <version>4.0.0</version>
           </dependency>
+
+
 
         </dependencies>
       </plugin>
