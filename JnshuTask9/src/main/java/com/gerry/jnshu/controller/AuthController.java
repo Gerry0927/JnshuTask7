@@ -4,14 +4,16 @@ import com.gerry.jnshu.core.CommonResult;
 import com.gerry.jnshu.pojo.UserInfo;
 import com.gerry.jnshu.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @RestController
 @RequestMapping("/auth")
+@Validated
 public class AuthController {
 
     @Autowired
@@ -29,10 +31,18 @@ public class AuthController {
         return CommonResult.success(userInfo,"登录");
     }
 
-
     @PostMapping("/sendSmsCode")
-    public CommonResult<Boolean> sendSmsCode(){
+    public CommonResult<Boolean> sendSmsCode(
+            @NotBlank
+            @Pattern(regexp = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$",message = "手机号格式不正确") String phoneNum){
+        authService.sendSMSCode(phoneNum);
         return CommonResult.success(true,"验证码发送成功，请注意查收");
+    }
+
+    @PostMapping("/sendEmail")
+    public CommonResult<Boolean> sendEmail(@RequestParam String toAddress,String content,String subject){
+        authService.sendEmail(toAddress,subject,content);
+        return CommonResult.success(true,"邮件发送成功，请注意查收");
     }
 
 

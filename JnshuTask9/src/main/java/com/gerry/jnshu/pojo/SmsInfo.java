@@ -16,4 +16,7 @@ public class SmsInfo implements Serializable {
     private String content;
     private String outId;
     private String phoneNum;
+
+    private Integer resCode;
+    private String resMsg;
 }

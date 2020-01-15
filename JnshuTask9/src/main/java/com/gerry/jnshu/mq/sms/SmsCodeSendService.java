@@ -1,14 +1,16 @@
-package com.gerry.jnshu.mq.producer;
+package com.gerry.jnshu.mq.sms;
 
 import com.gerry.jnshu.core.utils.UUID;
 import com.gerry.jnshu.pojo.SmsInfo;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class SmsCodeSender {
+@Service
+public class SmsCodeSendService {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
@@ -16,11 +18,11 @@ public class SmsCodeSender {
 //    @Autowired
 //    private BatchingRabbitTemplate batchingRabbitTemplate;
 
-    public void sendSMSLoginCode(String phoneNum,String content) throws Exception{
+    public SmsInfo sendSMSLoginCode(String phoneNum){
 
         SmsInfo smsInfo = new SmsInfo();
         smsInfo.setId(UUID.fastUUID().toString());
-        smsInfo.setContent(content);
+        smsInfo.setContent(RandomStringUtils.randomNumeric(4));
         smsInfo.setOutId(UUID.fastUUID().toString());
         smsInfo.setPhoneNum(phoneNum);
 
@@ -31,6 +33,6 @@ public class SmsCodeSender {
                  smsInfo,             //发送内容
                  correlationData);                      //消息唯一 id
 
-
+        return smsInfo;
     }
 }

@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
+import java.util.Set;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -96,6 +100,28 @@ public class GlobalExceptionHandler {
     public CommonResult<String> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
 //        logger.error("不支持当前请求方法", e);
         return CommonResult.error(HttpStatus.METHOD_NOT_ALLOWED.value(),"不支持该方法");
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    @ResponseBody
+    public CommonResult<String> handleValidationException(ValidationException e) {
+        logger.error(e.getMessage(), e);
+        String errorMsg;
+        if (e instanceof ConstraintViolationException) {
+            ConstraintViolationException exs = (ConstraintViolationException) e;
+              StringBuilder errors = new StringBuilder();
+            Set<ConstraintViolation<?>> violations = exs.getConstraintViolations();
+            for (ConstraintViolation<?> item : violations) {
+                /**打印验证不通过的信息*/
+                errors.append(item.getMessage()).append(",");
+            }
+            errorMsg = errors.substring(0,errors.length()-1);
+
+        }
+        else{
+           errorMsg = e.getMessage();
+        }
+        return CommonResult.error(HttpStatus.BAD_REQUEST.value(), errorMsg);
     }
 
 

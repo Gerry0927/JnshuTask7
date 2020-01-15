@@ -1,8 +1,10 @@
 package com.gerry.jnshu.core.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.validation.Validator;
 import java.util.Collections;
 
 @Configuration
@@ -59,4 +62,14 @@ public class SpringMVCConfiguration implements WebMvcConfigurer {
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
 //        registry.addResourceHandler("/web_frontend/**").addResourceLocations("classpath:/web_frontend/");
     }
+
+    @Autowired
+    private Validator validator;
+    @Bean
+    public MethodValidationPostProcessor mvcMethodValidationPostProcessor() {
+        MethodValidationPostProcessor methodValidationPostProcessor = new MethodValidationPostProcessor();
+        methodValidationPostProcessor.setValidator(validator);
+        return methodValidationPostProcessor;
+    }
+
 }

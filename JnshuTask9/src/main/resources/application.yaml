@@ -25,11 +25,15 @@ spring:
     add-mappings: false
 
   rabbitmq:
-    addresses: f0t1.top:5672
+    addresses: localhost:5672
     username: guest
-    password: guest
+    password: guset
     virtual-host: /
     connection-timeout: 15s
+    listener:
+      simple:
+        acknowledge-mode: manual
+        concurrency: 5
 
 mybatis:
   config-location: classpath:mybatis-config.xml
@@ -53,7 +57,10 @@ aliyun:
     defaultConnectTimeout: 10000
     defaultReadTimeout: 10000
     expireTime: 5
-
+  emailsdk:
+   accountName: jnshu
+   fromAlias: IT修真院
+   tagName: jnshu
 
 logging:
   level:

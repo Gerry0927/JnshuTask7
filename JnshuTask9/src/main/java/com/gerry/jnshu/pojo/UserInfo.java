@@ -1,12 +1,16 @@
 package com.gerry.jnshu.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rabbitmq.client.AMQP;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "User")
 public class UserInfo {
@@ -46,6 +50,29 @@ public class UserInfo {
 
     @Transient
     private String token;
+
+    @Transient
+    @JsonIgnore
+    private String smsCode;
+
+//    @Transient
+//    List<EmailInfo> emailInfo;
+//
+//    public List<EmailInfo> getEmailInfo() {
+//        return emailInfo;
+//    }
+//
+//    public void setEmailInfo(List<EmailInfo> emailInfo) {
+//        this.emailInfo = emailInfo;
+//    }
+
+    public String getSmsCode() {
+        return smsCode;
+    }
+
+    public void setSmsCode(String smsCode) {
+        this.smsCode = smsCode;
+    }
 
     public String getToken() {
         return token;
