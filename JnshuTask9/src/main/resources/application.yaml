@@ -2,7 +2,7 @@
 #debug: true
 spring:
   redis:
-    host: f0t1.top
+    host: 192.168.0.108
     port: 6379
     password:
     database: 0
@@ -17,7 +17,7 @@ spring:
     url: jdbc:mysql://localhost:3306/gerry?useSSL=false&useUnicode=true&characterEncoding=UTF-8
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: zhou1990
+    password: 123456
   mvc:
     throw-exception-if-no-handler-found: true
 #    static-path-pattern: /static
@@ -27,13 +27,18 @@ spring:
   rabbitmq:
     addresses: localhost:5672
     username: guest
-    password: guset
+    password: guest
     virtual-host: /
     connection-timeout: 15s
     listener:
       simple:
         acknowledge-mode: manual
         concurrency: 5
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 mybatis:
   config-location: classpath:mybatis-config.xml
@@ -44,6 +49,18 @@ token:
   header: Authorization
   secret: abcdefghijklmnopqrstuvwxyz
   expireTime: 30
+
+storage:
+  # 配置两种模式（本地、阿里云）分别是 local、aliyun
+  active: aliyun
+  aliyun:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    accessKeyId: 11111
+    accessKeySecret: 11111
+    bucketName: jnshu
+  local:
+    storagePath: storage
+    address: http://localhost:8080/storage
 
 
 aliyun:

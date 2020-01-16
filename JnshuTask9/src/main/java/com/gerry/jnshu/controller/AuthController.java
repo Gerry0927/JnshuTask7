@@ -1,6 +1,8 @@
 package com.gerry.jnshu.controller;
 
 import com.gerry.jnshu.core.CommonResult;
+import com.gerry.jnshu.core.limit.Limit;
+import com.gerry.jnshu.core.limit.LimitType;
 import com.gerry.jnshu.pojo.UserInfo;
 import com.gerry.jnshu.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ public class AuthController {
         return CommonResult.success(userInfo,"登录");
     }
 
+    @Limit(prefix = "limit:auth:",key = "sendSmsCode", period =100, count = 2,limitType = LimitType.IP)
     @PostMapping("/sendSmsCode")
     public CommonResult<Boolean> sendSmsCode(
             @NotBlank

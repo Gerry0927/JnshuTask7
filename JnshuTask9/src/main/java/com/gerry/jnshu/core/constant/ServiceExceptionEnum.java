@@ -15,7 +15,8 @@ public enum ServiceExceptionEnum {
     USER_ACCOUNT_ERROR(-1, "账号异常"),
     USER_EXIST(-1, "手机号已注册"),
     AUTHORIZED_ERROR(403,"用户验证失败"),
-    AUTHENTICATION_ERROR(401,"用户失败");
+    AUTHENTICATION_ERROR(401,"用户失败"),
+    REQUEST_LIMIT(400,"请求过于频繁，请稍后再试");
 
     // ========== 订单模块 ==========
 
